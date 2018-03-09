@@ -1,0 +1,13 @@
+{
+  "name": "Usage",
+  "version": "1.0.0",
+  "description": "Live demo",
+  "keywords": [],
+  "homepage": "https://codesandbox.io/s/4j7m47vlm4",
+  "main": "index.js",
+  "dependencies": {
+    "material-ui": "next",
+    "react": "16.0.0",
+    "react-dom": "16.0.0"
+  }
+}
