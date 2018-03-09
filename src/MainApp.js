@@ -3,24 +3,22 @@ import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  Link,
-  Redirect
+  Link
 } from "react-router-dom";
 
+import './main.css';
 
 import { connect } from 'react-redux';
-
-import {
-  loginUser,
-  logoutUser,
-} from './redux';
-
-// import PrivateRoute from "./components/PrivateRoute";
+import {PrivateRoute} from "./Auth";
 
 import Module1App from "./modules/module1/module1";
 import Module2App from "./modules/module2/module2";
 import UserApp from "./modules/user/user";
 import LoginApp from "./modules/user/login";
+
+import MainMap from "./modules/map/MainMap";
+
+
 
 
 export class MainApp extends Component {
@@ -40,11 +38,10 @@ export class MainApp extends Component {
                         <li><Link to="/topics">Topics</Link></li>
                         <li><Link to="/module1">Modulo 1</Link></li>
                         <li><Link to="/module2">Modulo 2</Link></li>
+                        <li><Link to="/map">Mapa</Link></li>
                         <li><Link to="/login">Login</Link></li>
                         <li><Link to="/user">Usuario</Link></li>
                     </ul>
-
-
 
                     <hr />
                 </header>
@@ -54,6 +51,8 @@ export class MainApp extends Component {
                 <Route path="/topics" component={Topics} />
                 <Route path="/module1" component={Module1App} />
                 <Route path="/module2" component={Module2App} />
+
+                <Route path="/map" component={MainMap} />
 
                 <Route path="/login" component={LoginApp} />
                 <PrivateRoute path="/user" component={UserApp} />
@@ -108,39 +107,6 @@ const Topic = ({ match }) => (
     <h3>{match.params.topicId}</h3>
   </div>
 );
-
-
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={props =>
-      fakeAuth.isAuthenticated === true ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { from: props.location }
-          }}
-        />
-      )
-    }
-  />
-);
-
-
-export const fakeAuth = {
-  isAuthenticated: false,
-  authenticate(cb) {
-    this.isAuthenticated = true
-    setTimeout(cb, 100)
-  },
-  signout(cb) {
-    this.isAuthenticated = false
-    setTimeout(cb, 100)
-  }
-}
-
 
 
 

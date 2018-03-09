@@ -8,7 +8,7 @@ import {
 } from '../../redux';
 
 
-import { fakeAuth } from '../../MainApp';
+import { authService } from '../../Auth';
 
 
 // import FacebookLogin from 'react-facebook-login';
@@ -23,7 +23,7 @@ class LoginApp extends Component {
 
         this.props.loginUser(response)
 
-        fakeAuth.authenticate();
+        authService.login();
 
         // this.props.loginUser({ name: 'Rodrigo Usuario' })
 
@@ -34,7 +34,7 @@ class LoginApp extends Component {
 
         this.props.logoutUser();
 
-        fakeAuth.signout();
+        authService.logout();
 
     }
 
