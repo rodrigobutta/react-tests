@@ -3,8 +3,9 @@ import React, { Component } from 'react'
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  NavLink
 } from "react-router-dom";
+// import { NavLink } from 'react-router-dom'
 
 import './main.css';
 
@@ -57,22 +58,22 @@ export class MainApp extends Component {
                 <div>
                     <header style={{backgroundColor:'#ddd'}}>
                         <h1>REACT Test</h1>
-                        <h2>{this.props.text}</h2>
                         <ul className="main-menu">
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to="/about">About</Link></li>
-                            <li><Link to="/topics">Topics</Link></li>
-                            <li><Link to="/module1">Modulo 1</Link></li>
-                            <li><Link to="/module2">Modulo 2</Link></li>
-                            <li><Link to="/axios">Axios</Link></li>
-                            <li><Link to="/map">Mapa</Link></li>
-                            <li><Link to="/meta">Meta</Link></li>
-                            <li><Link to="/assets">Assets</Link></li>
+                            <li><NavLink activeClassName="active" to="/" exact>Home</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/about">About</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/topics">Topics</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/module1">Modulo 1</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/module2">Modulo 2</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/axios">Axios</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/map">Mapa</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/meta">Meta</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/assets">Assets</NavLink></li>
 
-                            <li><Link to="/login">Login</Link></li>
-                            <li><Link to="/user">* Usuario</Link></li>
+                            <li><NavLink activeClassName="active" to="/login">Login</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/user">* Usuario</NavLink></li>
                         </ul>
 
+                        <h2>{this.props.text}</h2>
                         <button onClick={this.onClick} >Cambiar State</button>
 
                         <hr />
@@ -118,15 +119,15 @@ const About = () => (
 const Topics = ({ match }) => (
   <div>
     <h2>Topics</h2>
-    <ul>
+    <ul className="sub-menu">
       <li>
-        <Link to={`${match.url}/rendering`}>Rendering with React</Link>
+        <NavLink to={`${match.url}/rendering`} activeClassName="active">Rendering with React</NavLink>
       </li>
       <li>
-        <Link to={`${match.url}/components`}>Components</Link>
+        <NavLink to={`${match.url}/components`} activeClassName="active">Components</NavLink>
       </li>
       <li>
-        <Link to={`${match.url}/props-v-state`}>Props v. State</Link>
+        <NavLink to={`${match.url}/props-v-state`} activeClassName="active">Props v. State</NavLink>
       </li>
     </ul>
 

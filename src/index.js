@@ -15,7 +15,7 @@ import join from 'url-join';
 
 
 // TMP
-import * as actions from './Actions';
+// import * as actions from './Actions';
 import { TEXT_CHANGED } from './Actions/types';
 
 

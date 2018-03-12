@@ -9,7 +9,7 @@ class Assets extends Component {
     return(
         <div>
             <h2>Modulo Assets</h2>
-            <img src={img} />
+            <img src={img} alt="test"/>
         </div>
     )
 

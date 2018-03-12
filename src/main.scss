@@ -8,7 +8,7 @@ html {
   height: 100%; }
 
 body {
-  font: 20px/1.8 'Helvetica Nenu', Helvetica, sans-serif;
+  font: 16px/1.5 'Helvetica Nenu', Helvetica, sans-serif;
   min-height: 100%;
   margin: 0 1vw; }
 
@@ -18,12 +18,39 @@ body {
 
     li{
         float: left;
-        padding: 2px 7px;
-        background-color: #ffffff;
-        margin: 5px;
+
 
         a{
             text-decoration: none;
+            padding: 2px 7px;
+            background-color: #ffffff;
+            margin: 5px;
+
+            &.active{
+                background-color: #ffdd99;
+            }
         }
+
+
     }
+}
+
+.sub-menu{
+
+    li{
+
+        a{
+            text-decoration: none;
+            padding: 2px 7px;
+            background-color: #ffffff;
+            margin: 5px;
+
+            &.active{
+                background-color: #ffdd99;
+            }
+        }
+
+
+    }
+
 }
