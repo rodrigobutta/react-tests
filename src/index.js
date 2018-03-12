@@ -8,7 +8,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppContainer from "./MainApp";
 
 import { Provider } from 'react-redux';
-import { store } from './redux';
+// import { store } from './redux';
+import store from './Store';
 
 
 function App() {

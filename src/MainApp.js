@@ -8,7 +8,6 @@ import {
 
 import './main.css';
 
-import { connect } from 'react-redux';
 import {PrivateRoute} from "./Auth";
 
 import Module1App from "./modules/module1/module1";
@@ -17,11 +16,20 @@ import UserApp from "./modules/user/user";
 import LoginApp from "./modules/user/login";
 
 import MainMap from "./modules/map/MainMap";
+import AxiosModule from "./modules/axios/Axios";
 
+import { connect } from 'react-redux';
+import * as actions from './Actions';
 
 
 
 export class MainApp extends Component {
+
+
+    onClick = () => {
+      this.props.textChanged('22222')
+    }
+
 
     render() {
 
@@ -32,16 +40,26 @@ export class MainApp extends Component {
             <div>
                 <header style={{backgroundColor:'#ddd'}}>
                     <h1>REACT Test</h1>
+                    <h2>{this.props.text}</h2>
                     <ul>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/about">About</Link></li>
                         <li><Link to="/topics">Topics</Link></li>
                         <li><Link to="/module1">Modulo 1</Link></li>
                         <li><Link to="/module2">Modulo 2</Link></li>
+
+                        <li><Link to="/axios">Axios</Link></li>
+
                         <li><Link to="/map">Mapa</Link></li>
                         <li><Link to="/login">Login</Link></li>
                         <li><Link to="/user">Usuario</Link></li>
                     </ul>
+
+                    <button
+                        onClick={this.onClick}
+                    >Cambiar State</button>
+
+
 
                     <hr />
                 </header>
@@ -51,6 +69,8 @@ export class MainApp extends Component {
                 <Route path="/topics" component={Topics} />
                 <Route path="/module1" component={Module1App} />
                 <Route path="/module2" component={Module2App} />
+
+                <Route path="/axios" component={AxiosModule} />
 
                 <Route path="/map" component={MainMap} />
 
@@ -69,6 +89,8 @@ export class MainApp extends Component {
 const Home = () => (
   <div>
     <h2>Home</h2>
+
+
   </div>
 );
 
@@ -112,13 +134,9 @@ const Topic = ({ match }) => (
 
 // REDUX
 
-const mapStateToProps = (state, ownProps) => ({
-  userState: state.userReducer,
+const mapStateToProps = (state) => ({
+    text: state.text_reducer.text
 });
 
 
-const AppContainer = connect(
-  mapStateToProps
-)(MainApp);
-
-export default AppContainer;
+export default connect(mapStateToProps, actions)(MainApp);

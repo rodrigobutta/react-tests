@@ -5,6 +5,16 @@ import Star from './star'
 export { Star }
 
 export default class Rater extends Component {
+    static propTypes = {
+        total: PropTypes.number,
+        rating: PropTypes.number,
+        interactive: PropTypes.bool,
+        children: PropTypes.any,
+        onRate: PropTypes.func
+    }
+
+
+
   constructor(props) {
     super(props)
     this.state = {
@@ -13,10 +23,12 @@ export default class Rater extends Component {
       isRating: false
     }
   }
+
   callback(args) {
     let { onRate: callback } = this.props
     callback && callback(args)
   }
+
   willRate(rating, e) {
     this.setState({
       rating,
@@ -24,13 +36,38 @@ export default class Rater extends Component {
     })
     this.callback({ ...e, rating })
   }
-  onRate(rating, e) {
+
+
+  onRate = (rating, e) => {
+
+    console.log('onRate')
+    console.log(rating)
+
     this.setState({
-      rating,
-      lastRating: rating
+        rating,
+        lastRating: rating
     })
-    this.callback({ ...e, rating })
+
+    if (typeof this.props.onTrash === 'function') {
+        this.props.onRate(rating, this);
+    }
+
   }
+
+
+  // onRate(rating, e) {
+
+  //   console.log('onRate')
+  //   console.log(rating)
+
+
+  //   this.setState({
+  //     rating,
+  //     lastRating: rating
+  //   })
+  //   this.callback({ ...e, rating })
+  // }
+
   onCancelRate(e) {
     let { lastRating: rating } = this.state
     this.setState({
@@ -89,14 +126,6 @@ export default class Rater extends Component {
       )
     }
   }
-}
-
-Rater.propTypes = {
-  total: PropTypes.number,
-  rating: PropTypes.number,
-  interactive: PropTypes.bool,
-  children: PropTypes.any,
-  onRate: PropTypes.func
 }
 
 Rater.defaultProps = {

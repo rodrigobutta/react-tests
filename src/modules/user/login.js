@@ -1,18 +1,12 @@
 import React, { Component } from 'react'
 
-import { connect } from 'react-redux';
-
-import {
-  loginUser,
-  logoutUser,
-} from '../../redux';
-
-
 import { authService } from '../../Auth';
-
 
 // import FacebookLogin from 'react-facebook-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+
+import { connect } from 'react-redux';
+import * as actions from '../../Actions';
 
 
 class LoginApp extends Component {
@@ -21,18 +15,20 @@ class LoginApp extends Component {
     facebookLoggedIn = (response) => {
         console.log(response);
 
-        this.props.loginUser(response)
+        this.props.userLogin(response)
+
+        this.props.tokenLoad('NEWTOKEN1111')
 
         authService.login();
 
-        // this.props.loginUser({ name: 'Rodrigo Usuario' })
+        // this.props.userLogin({ name: 'Rodrigo Usuario' })
 
     }
 
 
     logout = () => {
 
-        this.props.logoutUser();
+        this.props.userLogout();
 
         authService.logout();
 
@@ -48,8 +44,8 @@ class LoginApp extends Component {
                 <h2>Login</h2>
 
                 <div>
-                    <h3>{this.props.userState.name || 'Anonimo'}</h3>
-                    {this.props.userState.name ?
+                    <h3>{this.props.auth.user.name || 'Sin loguear'}</h3>
+                    {this.props.auth.user.name ?
                         <button onClick={this.logout}>Salir</button> :
                         <FacebookLogin
                             appId="276409852891457"
@@ -77,19 +73,30 @@ class LoginApp extends Component {
 
 // REDUX
 
-const mapStateToProps = (state, ownProps) => ({
-  userState: state.userReducer,
-});
+// const mapStateToProps = (state, ownProps) => ({
+//   userState: state.userReducer,
+// });
 
-const mapDispatchToProps = {
-  loginUser,
-  logoutUser,
-};
+// const mapDispatchToProps = {
+//   userLogin,
+//   userLogout,
+// };
 
-const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LoginApp);
+// const AppContainer = connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(LoginApp);
 
-export default AppContainer;
+// export default AppContainer;
 
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    auth: state.auth_reducer
+  }
+
+}
+
+export default connect(mapStateToProps, actions)(LoginApp);
