@@ -6,7 +6,10 @@ import {
 } from '../Actions/types';
 
 
-const USER_EMPTY_OBJECT = {name: null};
+const USER_EMPTY_OBJECT = {
+    id: null,
+    name: null
+};
 
 const INITIAL_STATE = {
 

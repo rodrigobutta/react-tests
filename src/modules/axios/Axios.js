@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+// import PropTypes from 'prop-types'
 
 import axios from 'axios';
 
@@ -39,10 +39,17 @@ class AxiosModule extends Component {
 
     testRequest = () => {
 
-        const AuthStr = 'Bearer '.concat(this.state.token);
+        // const AuthStr = 'Bearer '.concat(this.state.token);
         const URL = 'http://al-server.localhost.com/api/items';
 
-        axios.get(URL, { headers: { Authorization: AuthStr } }).then(response => {
+        // axios.get(URL, { headers: { Authorization: AuthStr } }).then(response => {
+        //     console.log(response.data);
+        // })
+        // .catch((error) => {
+        //     console.log('error 3 ' + error);
+        // });
+
+        axios.get(URL).then(response => {
             console.log(response.data);
         })
         .catch((error) => {

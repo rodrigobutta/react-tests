@@ -10,9 +10,20 @@ html {
 body {
   font: 20px/1.8 'Helvetica Nenu', Helvetica, sans-serif;
   min-height: 100%;
-  margin: 0 10vw; }
+  margin: 0 1vw; }
 
-dd + dt {
-  border-top: 1px solid #eee;
-  margin-top: 20px;
-  padding-top: 20px; }
+.main-menu{
+    list-style: none;
+    padding: 5px;
+
+    li{
+        float: left;
+        padding: 2px 7px;
+        background-color: #ffffff;
+        margin: 5px;
+
+        a{
+            text-decoration: none;
+        }
+    }
+}

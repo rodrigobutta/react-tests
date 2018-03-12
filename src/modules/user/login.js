@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import { authService } from '../../Auth';
-
 // import FacebookLogin from 'react-facebook-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 
@@ -11,29 +9,16 @@ import * as actions from '../../Actions';
 
 class LoginApp extends Component {
 
-
     facebookLoggedIn = (response) => {
         console.log(response);
-
-        this.props.userLogin(response)
-
-        this.props.tokenLoad('NEWTOKEN1111')
-
-        authService.login();
-
-        // this.props.userLogin({ name: 'Rodrigo Usuario' })
-
+        this.props.userLogin(response);
+        this.props.tokenLoad('NEWTOKEN1111');
     }
-
 
     logout = () => {
-
         this.props.userLogout();
-
-        authService.logout();
-
+        this.props.tokenRelease();
     }
-
 
 
     render () {
@@ -45,7 +30,7 @@ class LoginApp extends Component {
 
                 <div>
                     <h3>{this.props.auth.user.name || 'Sin loguear'}</h3>
-                    {this.props.auth.user.name ?
+                    {this.props.auth.user.id ?
                         <button onClick={this.logout}>Salir</button> :
                         <FacebookLogin
                             appId="276409852891457"
@@ -70,33 +55,10 @@ class LoginApp extends Component {
 
 
 
-
-// REDUX
-
-// const mapStateToProps = (state, ownProps) => ({
-//   userState: state.userReducer,
-// });
-
-// const mapDispatchToProps = {
-//   userLogin,
-//   userLogout,
-// };
-
-// const AppContainer = connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(LoginApp);
-
-// export default AppContainer;
-
-
-
-
 const mapStateToProps = (state) => {
   return {
     auth: state.auth_reducer
   }
-
 }
 
 export default connect(mapStateToProps, actions)(LoginApp);
