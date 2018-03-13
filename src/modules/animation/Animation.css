@@ -1,0 +1,34 @@
+.example-enter {
+  opacity: 0.01; }
+
+.example-enter.example-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in; }
+
+.example-leave {
+  opacity: 1; }
+
+.example-leave.example-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in; }
+
+.example-appear {
+  opacity: 0.01; }
+
+.example-appear.example-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in; }
+
+.default-class2 {
+  transform: translateX(0);
+  transition: transform 300ms ease-out-in; }
+
+.enter-class2 {
+  transform: transit("translate(175px, 0)", 500, "ease-in-out"); }
+
+.leave-class2 {
+  transform: transit("translate(0, 0)", 500, "ease-in-out"); }
+
+.active-class2 {
+  transform: translateX(175px);
+  transition: transform 300ms ease-in-out; }

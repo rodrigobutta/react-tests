@@ -19,6 +19,8 @@ import MainMap from "./modules/map/MainMap";
 import AxiosModule from "./modules/axios/Axios";
 import Meta from "./modules/meta/Meta";
 import Assets from "./modules/assets/Assets";
+import Animation from "./modules/animation/Animation";
+import Search from "./modules/material/Search";
 
 import { connect } from 'react-redux';
 import * as actions from './Actions';
@@ -28,6 +30,13 @@ import DocumentMeta from 'react-document-meta';
 
 
 export class MainApp extends Component {
+    state = {
+        loading: true
+    };
+
+    componentDidMount() {
+        setTimeout(() => this.setState({ loading: false }), 1500); // simulates an async action, and hides the spinner
+    }
 
 
     onClick = () => {
@@ -37,8 +46,15 @@ export class MainApp extends Component {
 
     render() {
 
+        const { loading } = this.state;
+
+        if(loading) { // if your component doesn't have to wait for an async action, remove this block
+          return null; // render null when app is not ready
+        }
+
+
         const meta = {
-             title: 'Pruebas REACT',
+             title: 'REACT Test',
              description: 'I am a description, and I can create multiple tags',
              canonical: 'http://example.com/path/to/page',
              meta: {
@@ -68,6 +84,8 @@ export class MainApp extends Component {
                             <li><NavLink activeClassName="active" to="/map">Mapa</NavLink></li>
                             <li><NavLink activeClassName="active" to="/meta">Meta</NavLink></li>
                             <li><NavLink activeClassName="active" to="/assets">Assets</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/animation">Animation</NavLink></li>
+                            <li><NavLink activeClassName="active" to="/search">Search</NavLink></li>
 
                             <li><NavLink activeClassName="active" to="/login">Login</NavLink></li>
                             <li><NavLink activeClassName="active" to="/user">* Usuario</NavLink></li>
@@ -88,6 +106,8 @@ export class MainApp extends Component {
                     <Route path="/map" component={MainMap} />
                     <Route path="/meta" component={Meta} />
                     <Route path="/assets" component={Assets} />
+                    <Route path="/animation" component={Animation} />
+                    <Route path="/search" component={Search} />
 
                     <Route path="/login" component={LoginApp} />
 
