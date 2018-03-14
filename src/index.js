@@ -27,11 +27,11 @@ axios.interceptors.request.use(function (config) {
     }
 
     // TMP
-    const action = {
-        type: TEXT_CHANGED,
-        payload: 'DESDE INTERCEPTORS'
-      }
-    store.dispatch(action)
+    // const action = {
+    //     type: TEXT_CHANGED,
+    //     payload: 'DESDE INTERCEPTORS'
+    //   }
+    // store.dispatch(action)
     // TMP
 
     var token = store.getState().auth_reducer;

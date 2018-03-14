@@ -9,20 +9,18 @@ import axios from 'axios';
 // import _ from 'lodash';
 import debounce from 'lodash/debounce';
 
+import Item from './Item';
 
 
 class Search extends Component {
     state = {
-        users: []
+        users: [],
+        userlist: [],
+        usersAdded: []
     }
 
     constructor(props) {
        super(props);
-
-
-       // this.users = [];
-
-
 
        this.items = [
          'Apple', 'Apricot', 'Avocado',
@@ -54,169 +52,56 @@ class Search extends Component {
 
 
 
+       this.complexItems = [
+         {
+             text: 'text-value1',
+             value: (
+               <MenuItem
+                 primaryText="text-value1"
+                 secondaryText="&#9786;"
+               />
+             ),
+           },
+           {
+             text: 'text-value2',
+             value: (
+               <MenuItem
+                 primaryText="text-value2"
+                 secondaryText="&#9786;"
+               />
+             ),
+           },
+       ];
+
+
+       this.populateUsers();
+
+
+
+
    }
 
 
-   componentDidMount() {
-       this.getList();
+
+
+   populateUsers = () => {
+
+       axios
+       .post('http://cowork.localhost.com/api/user/all')
+       .then(res => {
+
+           this.setState({userlist: res.data});
+
+       }
+       )
+       .catch(err => console.log(err));
+
    }
 
 
 
-    getList = () => {
-
-
-        // this.setState({users: [
-        //     {
-        //       "id": 110,
-        //       "name": "Pablo Crtt"
-        //     },
-        //     {
-        //       "id": 143,
-        //       "name": "Facundo Bettencourt"
-        //     },
-        //     {
-        //       "id": 208,
-        //       "name": "Martin Bussetti"
-        //     },
-        //     {
-        //       "id": 249,
-        //       "name": "Manu Peruzzotti"
-        //     },
-        //     {
-        //       "id": 287,
-        //       "name": "Giuli Gabetta"
-        //     },
-        //     {
-        //       "id": 326,
-        //       "name": "Alejandro Simonetti"
-        //     },
-        //     {
-        //       "id": 414,
-        //       "name": "Alex Gottfried Bonder"
-        //     },
-        //     {
-        //       "id": 473,
-        //       "name": "Mariela Pasotti"
-        //     },
-        //     {
-        //       "id": 519,
-        //       "name": "Laura Van Micheletto"
-        //     },
-        //     {
-        //       "id": 550,
-        //       "name": "Little Melita Tenderly"
-        //     },
-        //     {
-        //       "id": 665,
-        //       "name": "Sofi Padelletti"
-        //     },
-        //     {
-        //       "id": 790,
-        //       "name": "Natty Llanes"
-        //     },
-        //     {
-        //       "id": 792,
-        //       "name": "Yamila Ailén Getter"
-        //     },
-        //     {
-        //       "id": 855,
-        //       "name": "Day Giotti"
-        //     },
-        //     {
-        //       "id": 879,
-        //       "name": "Stan Catti"
-        //     },
-        //     {
-        //       "id": 892,
-        //       "name": "Petter Minogue"
-        //     },
-        //     {
-        //       "id": 893,
-        //       "name": "Mel Battaglini"
-        //     },
-        //     {
-        //       "id": 905,
-        //       "name": "Natty Morillas"
-        //     },
-        //     {
-        //       "id": 909,
-        //       "name": "Rochi Dittus"
-        //     },
-        //     {
-        //       "id": 920,
-        //       "name": "Maria Pilar Pittoni Nuñez"
-        //     },
-        //     {
-        //       "id": 943,
-        //       "name": "Natt Campanile"
-        //     },
-        //     {
-        //       "id": 971,
-        //       "name": "Daniel Scotte"
-        //     },
-        //     {
-        //       "id": 1027,
-        //       "name": "Alicia Feregotto Garayo"
-        //     },
-        //     {
-        //       "id": 1045,
-        //       "name": "Giuu Galetti"
-        //     },
-        //     {
-        //       "id": 1051,
-        //       "name": "Fernando Brischetto"
-        //     },
-        //     {
-        //       "id": 1119,
-        //       "name": "Francisco Culotta"
-        //     },
-        //     {
-        //       "id": 1191,
-        //       "name": "Lett Bertoncello"
-        //     },
-        //     {
-        //       "id": 1234,
-        //       "name": "Ricardo Daniel Pretta"
-        //     },
-        //     {
-        //       "id": 1341,
-        //       "name": "Melisa Filippetti"
-        //     },
-        //     {
-        //       "id": 1574,
-        //       "name": "Guada Scarpatti"
-        //     },
-        //     {
-        //       "id": 1609,
-        //       "name": "Milagros Betti"
-        //     },
-        //     {
-        //       "id": 1694,
-        //       "name": "Ghiretti Agustin"
-        //     },
-        //     {
-        //       "id": 1728,
-        //       "name": "Humberto Lanzillotta"
-        //     },
-        //     {
-        //       "id": 1747,
-        //       "name": "Juana Pernigotti"
-        //     },
-        //     {
-        //       "id": 1763,
-        //       "name": "Katty Acosta"
-        //     }
-        // ] });
-
-
-
-    }
-
-
-    searchUsers = (query,b) => {
-
-        console.log(b)
+    searchUsers = (query) => {
+        console.log('searchUsers')
 
         axios
         .post('http://cowork.localhost.com/api/user/search',{
@@ -230,9 +115,42 @@ class Search extends Component {
         )
         .catch(err => console.log(err));
 
+    }
+
+
+    handleNewRequest = (chosenRequest,idx) => {
+
+        console.log('handleNewRequest')
+
+
+        if (idx>-1)  //only allow selected items to be added
+        {
+
+
+            console.log(chosenRequest)
+
+
+            this.setState({
+                usersAdded: this.state.usersAdded.concat([
+                        {
+                            id: chosenRequest.id,
+                            name: chosenRequest.name
+                        }
+                ])
+            })
 
 
 
+            // console.log(idx)
+
+            // this.setState( { searchText: '' })
+
+            // do something with the chosenRequest, eg rest request
+             setTimeout(()=>{
+                    this.refs[`autocomplete`].setState({searchText:''});
+                    this.refs[`autocomplete`].focus();
+                }, 400);
+        }
     }
 
 
@@ -253,23 +171,58 @@ class Search extends Component {
 
 
             <AutoComplete
-                floatingLabelText="'peah', fuzzy search"
+                floatingLabelText=" Array Local Tipear 'peah' (fuzzy search)"
                 filter={AutoComplete.fuzzyFilter}
                 dataSource={this.items}
                 maxSearchResults={5}
+                fullWidth={true}
+            />
+
+            <AutoComplete
+                 floatingLabelText="Array local con OBJETO como rsultado"
+                 filter={AutoComplete.noFilter}
+                 dataSource={this.complexItems}
+                 openOnFocus={true}
+                 fullWidth={true}
             />
 
 
 
             <AutoComplete
-                floatingLabelText="Con AJAX"
+                floatingLabelText="AJAX search con Debounce al tipear"
                 filter={AutoComplete.fuzzyFilter}
                 dataSourceConfig={dataSourceConfig}
                 dataSource={this.state.users}
                 maxSearchResults={5}
+                fullWidth={true}
                 onUpdateInput={debounce((value) => this.searchUsers(value), 500)}
                 filter={(searchText: string, key: string) => true}
             />
+
+
+
+            <AutoComplete
+                floatingLabelText="Precarga desde AJAX"
+                filter={AutoComplete.fuzzyFilter}
+                dataSourceConfig={dataSourceConfig}
+                dataSource={this.state.userlist}
+                maxSearchResults={5}
+                fullWidth={true}
+                ref={`autocomplete`}
+                onNewRequest={this.handleNewRequest}
+            />
+
+
+
+            {
+                this.state.usersAdded.map((item) => (
+                    <Item key={item.id} id={item.id} name={item.name}/>
+                ))
+            }
+
+               <Item
+                   id={1}
+               />
 
         </div>
     )
