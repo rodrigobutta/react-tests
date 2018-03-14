@@ -7,20 +7,20 @@ import './Animation.css';
 
 
 
-const styles = {
-  defaultStyle: {
-    transform: "translate(0, 0)",
-  },
-  enterStyle: {
-    transform: transit("translate(175px, 0)", 500, "ease-in-out"),
-  },
-  leaveStyle: {
-    transform: transit("translate(0, 0)", 500, "ease-in-out"),
-  },
-  activeStyle: {
-    transform: "translate(175px, 0)",
-  },
-};
+// const styles = {
+//   defaultStyle: {
+//     transform: "translate(0, 0)",
+//   },
+//   enterStyle: {
+//     transform: transit("translate(175px, 0)", 500, "ease-in-out"),
+//   },
+//   leaveStyle: {
+//     transform: transit("translate(0, 0)", 500, "ease-in-out"),
+//   },
+//   activeStyle: {
+//     transform: "translate(175px, 0)",
+//   },
+// };
 
 const classes = {
   defaultClassName: "default-class2",

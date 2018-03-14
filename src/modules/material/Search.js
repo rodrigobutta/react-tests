@@ -12,6 +12,12 @@ import debounce from 'lodash/debounce';
 import Item from './Item';
 
 
+
+import { connect } from 'react-redux';
+import * as actions from '../../Actions';
+
+
+
 class Search extends Component {
     state = {
         users: [],
@@ -74,7 +80,7 @@ class Search extends Component {
        ];
 
 
-       this.populateUsers();
+       // this.populateUsers();
 
 
 
@@ -84,19 +90,19 @@ class Search extends Component {
 
 
 
-   populateUsers = () => {
+   // populateUsers = () => {
 
-       axios
-       .post('http://cowork.localhost.com/api/user/all')
-       .then(res => {
+   //     axios
+   //     .post('http://cowork.localhost.com/api/user/all')
+   //     .then(res => {
 
-           this.setState({userlist: res.data});
+   //         this.setState({userlist: res.data});
 
-       }
-       )
-       .catch(err => console.log(err));
+   //     }
+   //     )
+   //     .catch(err => console.log(err));
 
-   }
+   // }
 
 
 
@@ -118,39 +124,26 @@ class Search extends Component {
     }
 
 
-    handleNewRequest = (chosenRequest,idx) => {
+    handleNewRequest = (selObj,idx) => {
 
-        console.log('handleNewRequest')
-
-
-        if (idx>-1)  //only allow selected items to be added
-        {
-
-
-            console.log(chosenRequest)
-
+        if (idx>-1){
 
             this.setState({
                 usersAdded: this.state.usersAdded.concat([
                         {
-                            id: chosenRequest.id,
-                            name: chosenRequest.name
+                            id: selObj.id,
+                            name: selObj.name
                         }
                 ])
             })
 
-
-
-            // console.log(idx)
-
-            // this.setState( { searchText: '' })
-
-            // do something with the chosenRequest, eg rest request
-             setTimeout(()=>{
+            setTimeout(()=>{
                     this.refs[`autocomplete`].setState({searchText:''});
                     this.refs[`autocomplete`].focus();
-                }, 400);
+            }, 200);
+
         }
+
     }
 
 
@@ -205,7 +198,7 @@ class Search extends Component {
                 floatingLabelText="Precarga desde AJAX"
                 filter={AutoComplete.fuzzyFilter}
                 dataSourceConfig={dataSourceConfig}
-                dataSource={this.state.userlist}
+                dataSource={this.props.users}
                 maxSearchResults={5}
                 fullWidth={true}
                 ref={`autocomplete`}
@@ -231,4 +224,13 @@ class Search extends Component {
 
 }
 
-export default Search;
+// export default Search;
+
+
+
+
+const mapStateToProps = (state) => ({
+    users: state.user_reducer.users,
+});
+
+export default connect(mapStateToProps, actions)(Search);

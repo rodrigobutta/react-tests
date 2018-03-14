@@ -16,7 +16,7 @@ import join from 'url-join';
 
 // TMP
 // import * as actions from './Actions';
-import { TEXT_CHANGED } from './Actions/types';
+// import { TEXT_CHANGED } from './Actions/types';
 
 
 axios.interceptors.request.use(function (config) {
@@ -55,7 +55,7 @@ axios.interceptors.response.use((response) => {
     return response;
 }, function (error) {
 
-    const originalRequest = error.config;
+    // const originalRequest = error.config;
 
     if (error.response.status === 401) {
         console.log('unauthorized, logging out ...');

@@ -35,6 +35,9 @@ export class MainApp extends Component {
     };
 
     componentDidMount() {
+
+        this.props.fetchUsersWithRedux()
+
         setTimeout(() => this.setState({ loading: false }), 1500); // simulates an async action, and hides the spinner
     }
 
